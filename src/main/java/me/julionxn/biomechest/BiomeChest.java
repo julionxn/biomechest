@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class BiomeChest implements ModInitializer {
+
 	public static final String ID = "biomechest";
     public static final Logger LOGGER = LoggerFactory.getLogger("biomechest");
 

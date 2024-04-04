@@ -13,7 +13,6 @@ public class S2C_OpenViewScreen {
 
     public static void onClient(MinecraftClient client, ClientPlayNetworkHandler handler,
                                 PacketByteBuf buf, PacketSender sender) {
-
         //Obtener del paquete las entries para poder mostrar en el menú
         List<List<String>> entries = new ArrayList<>();
         int size = buf.readInt();
@@ -24,6 +23,5 @@ public class S2C_OpenViewScreen {
         client.execute(() -> {
             MinecraftClient.getInstance().setScreen(new ViewScreen(entries));
         });
-
     }
 }

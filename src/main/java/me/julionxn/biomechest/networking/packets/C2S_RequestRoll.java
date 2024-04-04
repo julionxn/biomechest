@@ -20,7 +20,6 @@ public class C2S_RequestRoll {
     public static void onServer(MinecraftServer server, ServerPlayerEntity player,
                                 ServerPlayNetworkHandler serverPlayNetworkHandler,
                                 PacketByteBuf buf, PacketSender sender) {
-
         String id = buf.readString();
         server.execute(() -> {
             Identifier lootId = Identifier.tryParse(id);

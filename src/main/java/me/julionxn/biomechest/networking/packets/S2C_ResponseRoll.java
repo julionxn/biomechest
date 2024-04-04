@@ -13,13 +13,11 @@ import java.util.List;
 public class S2C_ResponseRoll {
     public static void onClient(MinecraftClient client, ClientPlayNetworkHandler handler,
                                 PacketByteBuf buf, PacketSender sender) {
-
         List<ItemStack> roll = buf.readCollection(ArrayList::new, PacketByteBuf::readItemStack);
         client.execute(() -> {
             if (client.currentScreen instanceof ViewScreen screen){
                 screen.responseRoll(roll);
             }
         });
-
     }
 }

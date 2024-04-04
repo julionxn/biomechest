@@ -19,11 +19,9 @@ import java.util.Set;
 
 public class BiomeChestCommand {
 
-
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher,
                                 CommandRegistryAccess commandRegistryAccess,
                                 CommandManager.RegistrationEnvironment registrationEnvironment) {
-
         dispatcher.register(CommandManager.literal("biomechest").requires(source -> source.hasPermissionLevel(2))
                 .then(
                         CommandManager.literal("reload").executes(BiomeChestCommand::reload)
@@ -56,7 +54,6 @@ public class BiomeChestCommand {
     private static int view(CommandContext<ServerCommandSource> ctx){
         ServerCommandSource source = ctx.getSource();
         if (!source.isExecutedByPlayer() || source.getPlayer() == null) return -1;
-
         //Serializar las entries
         PacketByteBuf buf = PacketByteBufs.create();
         Data data = Config.getInstance().getData();

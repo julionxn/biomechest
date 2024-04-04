@@ -151,7 +151,7 @@ public class ViewScreen extends Screen {
         }
     }
 
-    public record Entry(String biomeKey, List<String> options) {
+    private record Entry(String biomeKey, List<String> options) {
     }
 
 }
