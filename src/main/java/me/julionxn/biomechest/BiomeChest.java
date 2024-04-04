@@ -17,6 +17,6 @@ public class BiomeChest implements ModInitializer {
 		Config.getInstance().init();
 		CommandRegistrationCallback.EVENT.register(BiomeChestCommand::register);
 		AllPackets.registerC2SPackets();
-		LOGGER.info("Hello Fabric world!");
+		LOGGER.info("BiomeChest!");
 	}
 }

@@ -67,13 +67,6 @@ public abstract class ChestBlockMixin extends Block {
 
 		//Aplicar la lootable al azar
 		Config.getInstance().getData().getRandomLootable(world, pos).ifPresent(id -> {
-
-			/*LootTable test = world.getServer().getLootManager().getTable(id);
-			LootContext context = new LootContext.Builder((ServerWorld) world)
-					.parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(pos))
-					.build(LootContextTypes.CHEST);
-			test.generateLoot(context).forEach(itemStack -> System.out.println(itemStack.toString()));*/
-
 			LootableContainerBlockEntity.setLootTable(world, world.random, pos, id);
 			world.setBlockState(pos, state.with(USED, true));
 		});
