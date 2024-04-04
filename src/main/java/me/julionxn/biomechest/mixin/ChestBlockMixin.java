@@ -40,7 +40,7 @@ public abstract class ChestBlockMixin extends Block {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	public void init(AbstractBlock.Settings settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, CallbackInfo ci) {
-		setDefaultState(getStateManager().getDefaultState().with(USED, false));
+		setDefaultState(getStateManager().getDefaultState().with(USED, true));
 	}
 
 	@Inject(method = "appendProperties", at = @At("TAIL"))
@@ -50,26 +50,19 @@ public abstract class ChestBlockMixin extends Block {
 
 	@Inject(method = "onPlaced", at = @At("TAIL"))
 	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack, CallbackInfo ci){
-		//En caso de que un jugador coloque un cofre, y este no esté en creativo, aplicar la propiedad USED
-		if (placer instanceof PlayerEntity player && !player.isCreative()){
-			world.setBlockState(pos, state.with(USED, true));
+		//En caso de que un jugador coloque un cofre, y esté en creativo, aplicar la propiedad USED a false
+		if (placer instanceof PlayerEntity player && player.isCreative()){
+			world.setBlockState(pos, state.with(USED, false));
+			Config.getInstance().getData().getRandomLootable(world, pos).ifPresent(id ->
+				LootableContainerBlockEntity.setLootTable(world, world.random, pos, id)
+			);
 		}
 	}
 
 	@Inject(method = "onUse", at = @At("TAIL"))
 	public void injectInventory(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir){
-		if (world.isClient) return;
-		//Verificar que el cofre sea válido para aplicar la lootable
-		Inventory inventory = ChestBlock.getInventory((ChestBlock)(Object) this, state, world, pos, true);
 		if (state.get(USED)) return;
-		if (inventory == null) return;
-		if (!inventory.isEmpty()) return;
-
-		//Aplicar la lootable al azar
-		Config.getInstance().getData().getRandomLootable(world, pos).ifPresent(id -> {
-			LootableContainerBlockEntity.setLootTable(world, world.random, pos, id);
-			world.setBlockState(pos, state.with(USED, true));
-		});
+		world.setBlockState(pos, state.with(USED, true));
 	}
 
 }
