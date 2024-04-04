@@ -6,7 +6,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class S2C_OpenViewScreen {
 
